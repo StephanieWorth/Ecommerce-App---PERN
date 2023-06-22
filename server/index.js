@@ -9,10 +9,16 @@ const pool = require('./db');
 app.use(cors());
 app.use(express.json()); //req.body
 
+//ROUTES//
+
+//register and login routes
+
+app.use("/auth", require("./routes/jwtAuth"));
+
+
 app.get('/', (req, res) => {
     res.send('Hi Steph');
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);
