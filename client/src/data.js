@@ -39,3 +39,39 @@ export const categories = [
         title: "ANTI-AGING"
     }
 ]
+
+
+export const popularProducts = [
+    {
+        id: 1,
+        img: "assets/images/curology-purple.jpg"
+    },
+    {
+        id: 2,
+        img: "assets/images/fabulous.jpg"
+    },
+    {
+        id: 3,
+        img: "assets/images/glossier-pink.jpg"
+    },
+    {
+        id: 4,
+        img: "assets/images/good-skin-club.jpg"
+    },
+    {
+        id: 5,
+        img: "assets/images/grown.jpg"
+    },
+    {
+        id: 6,
+        img: "assets/images/hemp.jpg"
+    },
+    {
+        id: 7,
+        img: "assets/images/moisturiser.jpg"
+    },
+    {
+        id: 8,
+        img: "assets/images/neccessaire.jpg"
+    }
+]
