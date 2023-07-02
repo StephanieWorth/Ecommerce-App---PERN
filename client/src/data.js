@@ -21,3 +21,21 @@ export const sliderItems = [
         bg: "#e0ffff"
     }
 ]
+
+export const categories = [
+    {
+        id: 1,
+        img: "assets/images/skincare.jpg",
+        title: "SKINCARE"
+    },
+    {
+        id: 2,
+        img: "assets/images/hydrating.jpg",
+        title: "HYDRATING"
+    },
+    {
+        id: 3,
+        img: "assets/images/anti-aging.jpg",
+        title: "ANTI-AGING"
+    }
+]
