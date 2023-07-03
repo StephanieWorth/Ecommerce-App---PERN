@@ -118,8 +118,8 @@ const Button = styled.button`
 const ProductItem = () => {
     return (
         <Container>
-            <Navbar />
             <Announcement />
+            <Navbar />
             <Wrapper>
                 <ImgContainer>
                     <Image src="assets/images/good-skin-club.jpg" />

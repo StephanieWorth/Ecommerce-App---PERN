@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import Announcement from "../components/Announcement/Announcement";
+import Navbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
 
 const Container = styled.div`
     width: 100vw;
@@ -56,6 +59,8 @@ const Link = styled.a`
 const Login = () => {
     return (
         <Container>
+            <Announcement />
+            <Navbar />
             <Wrapper>
                 <Title>SIGN IN</Title>
                 <Form>
@@ -66,6 +71,7 @@ const Login = () => {
                     <Link>CREATE A NEW ACCOUNT</Link>
                 </Form>
             </Wrapper>
+            <Footer />
         </Container>
     )
 }

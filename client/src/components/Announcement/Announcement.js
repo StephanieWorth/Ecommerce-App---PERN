@@ -5,7 +5,7 @@ import './Announcement.css';
 const Announcement = () => {
     return (
         <div className="announce-container">
-            <p>Super Deal! Free Shipping on Orders Over £50</p>
+            <p>Enjoy 15% Off Your First Order Using Code FIRST15</p>
         </div>
     )
 }

@@ -35,6 +35,12 @@ const SocialIcon = styled.div`
     align-items: center;
     justify-content: center;
     margin-right: 20px;
+    cursor: pointer;
+    transition: all .5s ease;
+
+    &:hover{
+        transform: scale(1.1);
+    }
 `;
 
 const Center = styled.div`
@@ -57,6 +63,11 @@ const List = styled.ul`
 const ListItem = styled.li`
     width: 50%;
     margin-bottom: 10px;
+    cursor: pointer;
+
+    &:hover{
+        font-weight: 600;
+    }
 `;
 
 const Right = styled.div`
@@ -78,7 +89,7 @@ const Footer = () => {
     return (
         <Container>
             <Left>
-                <Logo>LAMA.</Logo>
+                <Logo>GLOW.</Logo>
                 <Description>This is a desciption about the beauty and skincare products. Indulge yourself in our amazing skincare ranges.</Description>
                 <SocialContainer>
                     <SocialIcon>

@@ -10,14 +10,14 @@ const Navbar = () => {
                 <div className="left">
                     <span className="nav-language">EN</span>
                     <div className="search-container">
-                        <input />
+                        <input placeholder="search products"/>
                         <Search  style={{color:"gray", fontSize:16}}/>
                         
                     </div>
 
                 </div>
                 <div className="center">
-                    <h2 clasName="logo">LAMA.</h2>
+                    <h2 clasName="logo">GLOW.</h2>
                 </div>
                 <div className="right">
                     <div className="menuItem">REGISTER</div>
