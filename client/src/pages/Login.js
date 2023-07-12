@@ -3,6 +3,11 @@ import styled from "styled-components";
 import Announcement from "../components/Announcement/Announcement";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
+import { mobile } from "../responsive";
+
+const MainContainer = styled.div`
+
+`;
 
 const Container = styled.div`
     width: 100vw;
@@ -12,22 +17,33 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 38px;
 `;
 
 const Wrapper = styled.div`
-    width: 25%;
+    width: 30%;
     padding: 20px;
     background-color: white;
+    box-shadow: 0 0 50px 15px bisque;
+
+    ${mobile({ width: "75%" })}
 `;
 
 const Title = styled.h1`
     font-size: 24px;
     font-weight: 300;
+    text-align: center;
 `;
 
 const Form = styled.form`
     display: flex; 
     flex-direction: column;   
+`;
+
+const Label = styled.label`
+    color: gray;
+    font-weight: 100;
+    margin-bottom: -5px;
 `;
 
 const Input = styled.input`
@@ -40,13 +56,15 @@ const Input = styled.input`
 
 
 const Button = styled.button`
-    width: 40%;
+    width: 100%;
     border: none;
-    padding: 15px 20px;
+    padding: 10px 20px;
     background-color: teal;
     color: white;
     cursor: pointer;
-    margin-bottom: 10px
+    margin-top: 10px;
+    margin-bottom: 25px
+
 `;
 
 const Link = styled.a`
@@ -54,25 +72,32 @@ const Link = styled.a`
     font-size: 12px;
     text-decoration: underline;
     cursor: pointer;
+    color: gray;
+    font-weight: ${(props) => props.type === "account" && "bold"};
+    letter-spacing: ${(props) => props.type === "account" && "1px"};
 `;
 
 const Login = () => {
     return (
-        <Container>
+        <MainContainer>
             <Announcement />
             <Navbar />
-            <Wrapper>
-                <Title>SIGN IN</Title>
-                <Form>
-                    <Input placeholder="email" />
-                    <Input placeholder="password" />
-                    <Button>SIGN IN</Button>
-                    <Link>FORGOTTEN PASSWORD?</Link>
-                    <Link>CREATE A NEW ACCOUNT</Link>
-                </Form>
-            </Wrapper>
+            <Container>
+                <Wrapper>
+                    <Title>SIGN IN</Title>
+                    <Form>
+                        <Label>Email *</Label>
+                        <Input  />
+                        <Label>Password *</Label>
+                        <Input  />
+                        <Button>SIGN IN</Button>
+                        <Link>Forgot Password?</Link>
+                        <Link type="account">CREATE CUSTOMER ACCOUNT</Link>
+                    </Form>
+                </Wrapper>
+            </Container>
             <Footer />
-        </Container>
+        </MainContainer>
     )
 }
 
