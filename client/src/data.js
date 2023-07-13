@@ -26,17 +26,20 @@ export const categories = [
     {
         id: 1,
         img: "assets/images/skincare.jpg",
-        title: "SKINCARE"
+        title: "SKINCARE",
+        cat: "Barrier Repair & Damage"
     },
     {
         id: 2,
         img: "assets/images/hydrating.jpg",
-        title: "HYDRATING"
+        title: "HYDRATING",
+        cat: "Dehydration"
     },
     {
         id: 3,
         img: "assets/images/anti-aging.jpg",
-        title: "ANTI-AGING"
+        title: "ANTI-AGING",
+        cat: "Redness"
     }
 ]
 
