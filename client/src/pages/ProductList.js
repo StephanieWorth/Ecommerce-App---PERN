@@ -51,7 +51,8 @@ const Option = styled.option`
 
 const ProductList = () => {
     const location = useLocation();
-    const cat = location.pathname.split("/")[2];
+    const path = location.pathname;
+    const cat = path !== "/" ? path.split("/")[2] : "";
     const [filters, setFilters] = useState({});
     const [sort, setSort] = useState("newest");
 
@@ -59,7 +60,7 @@ const ProductList = () => {
         const value = e.target.value;
         setFilters({
             ...filters,
-            [e.target.name]: value
+            [e.target.name]: value,
         }); 
     };
 
@@ -68,13 +69,13 @@ const ProductList = () => {
         <Container>
             <Announcement />
             <Navbar />
-            <Title>Skincare</Title>
+            <Title>{cat}</Title>
             <FilterContainer>
                 <Filter>
                     <FilterText>Filter Products:</FilterText>
-                    <Select name="skinGoals" onChange={handleFilters}>
+                    <Select name="category" onChange={handleFilters}>
                         <Option disabled>
-                            Skin Goals
+                            Category
                         </Option>
                         <Option>Dehydration</Option>
                         <Option>Fine Lines & Wrinkles</Option>
@@ -83,6 +84,14 @@ const ProductList = () => {
                         <Option>Redness</Option>
                         <Option>Pigmentation & Dark Spots</Option>
                         <Option>Visible Pores</Option>
+                    </Select>
+                    <Select name="size" onChange={handleFilters}>
+                        <Option disabled>
+                            Size
+                        </Option>
+                        <Option>15ml</Option>
+                        <Option>35ml</Option>
+                        <Option>90ml</Option>
                     </Select>
                 </Filter>
                 <Filter>

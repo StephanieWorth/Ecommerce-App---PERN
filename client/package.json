@@ -5,12 +5,19 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@material-ui/icons": "^4.11.3",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/stripe-js": "^1.54.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.3.1",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^8.1.1",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
     "react-stripe-checkout": "^2.6.3",
@@ -18,7 +25,8 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.14.5"
+    "@babel/plugin-proposal-private-property-in-object": "^7.14.5",
+    "@types/react-router-dom": "^5.3.3"
   },
   "scripts": {
     "start": "react-scripts start",

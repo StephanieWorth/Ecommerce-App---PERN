@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar/Navbar";
 import Announcement from "../components/Announcement/Announcement";
 import Footer from "../components/Footer/Footer";
 import { Add, DeleteOutlineOutlined, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
+import StripeCheckout from 'react-stripe-checkout';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
     
@@ -202,6 +210,14 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
+    const cart = useSelector(state => state.cart);
+    const [stripeToken, setStripeToken] = useState(null);
+
+    const onToken = (token) => {
+        setStripeToken(token);
+    };
+
+    console.log(stripeToken);
     return (
         <Container>
             <Announcement />
@@ -218,59 +234,43 @@ const Cart = () => {
                 </Top>
                 <Bottom>
                     <Info>
-                        <Product>
-                            <ProductDetail>
-                                <Image src="assets/images/fabulous.jpg"/>
-                                <Details>
-                                    <ProductName><b>Product:</b> FABULOUS HYDRATING SERUM</ProductName>
-                                    <ProductId><b>ID:</b> 64739000329</ProductId>
-                                    <ProductColor color="orange"/>
-                                    <ProductSize><b>Size:</b> 90ml</ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add style={{cursor:"pointer"}}/>
-                                    <ProductAmount>2</ProductAmount>
-                                    <Remove style={{cursor:"pointer"}} />
-                                </ProductAmountContainer>
-                                <ProductPrice>£ 57</ProductPrice>
-                            </PriceDetail>
-                            <ProductDelete>
-                                <DeleteOutlineOutlined style={{cursor:"pointer"}}/>
-                            </ProductDelete>
-                        </Product>
+                        
+                        {cart.products.map((product) => (
+                            <>
+                            <Product>
+                                <ProductDetail>
+                                    <Image src={product.img}/>
+                                    <Details>
+                                        <ProductName><b>Product:</b> {product.name}</ProductName>
+                                        <ProductId><b>ID:</b> {product.id}</ProductId>
+                                        <ProductColor color={product.color}/>
+                                        <ProductSize><b>Size:</b> {product.size}</ProductSize>
+                                    </Details>
+                                </ProductDetail>
+                                <PriceDetail>
+                                    <ProductAmountContainer>
+                                        <Add style={{cursor:"pointer"}}/>
+                                        <ProductAmount>{product.quantity}</ProductAmount>
+                                        <Remove style={{cursor:"pointer"}} />
+                                    </ProductAmountContainer>
+                                    <ProductPrice>£ {product.price * product.quantity}</ProductPrice>
+                                </PriceDetail>
+                                <ProductDelete>
+                                    <DeleteOutlineOutlined style={{cursor:"pointer"}}/>
+                                </ProductDelete>
+                            </Product>
 
-                        <Hr/>
+                            <Hr/>
+                            </>
+                        ))}
 
-                        <Product>
-                            <ProductDetail>
-                                <Image src="assets/images/tatcha.jpg"/>
-                                <Details>
-                                    <ProductName><b>Product:</b> FABULOUS HYDRATING SERUM</ProductName>
-                                    <ProductId><b>ID:</b> 64739000330</ProductId>
-                                    <ProductColor color="red"/>
-                                    <ProductSize><b>Size:</b> 35ml</ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <Add style={{cursor:"pointer"}}/>
-                                    <ProductAmount>1</ProductAmount>
-                                    <Remove style={{cursor:"pointer"}}/>
-                                </ProductAmountContainer>
-                                <ProductPrice>£ 62</ProductPrice>
-                            </PriceDetail>
-                            <ProductDelete>
-                                <DeleteOutlineOutlined style={{cursor:"pointer"}}/>
-                            </ProductDelete>
-                        </Product>
+                       
                     </Info>
                     <Summary>
                         <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                         <SummaryItem>
                             <SummaryItemText>Subtotal</SummaryItemText>
-                            <SummaryItemPrice>£ 119</SummaryItemPrice>
+                            <SummaryItemPrice>£ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
 
                         <SummaryItem>
@@ -285,10 +285,21 @@ const Cart = () => {
 
                         <SummaryItem type="total">
                             <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>£ 119</SummaryItemPrice>
+                            <SummaryItemPrice>£ {cart.total}</SummaryItemPrice>
                         </SummaryItem>
 
-                        <Button>CHECKOUT</Button>                    
+                        <StripeCheckout 
+                            name="Glow Shop"
+                            image=""
+                            billingAddress
+                            shippingAddress
+                            description = {`Your total is $${cart.total}`}
+                            amount={cart.total*100}
+                            token={onToken}
+                            stripeKey={KEY}
+                        >
+                            <Button>Pay Now</Button>
+                        </StripeCheckout>                    
                     </Summary>    
                 </Bottom>
             </Wrapper>

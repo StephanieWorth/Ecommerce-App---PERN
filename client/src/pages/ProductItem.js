@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar/Navbar";
 import Announcement from "../components/Announcement/Announcement";
@@ -6,6 +6,10 @@ import Newsletter from "../components/Newsletter/Newsletter";
 import Footer from "../components/Footer/Footer";
 import { Add, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { useLocation } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
 
 const Container = styled.div`
 
@@ -124,41 +128,76 @@ const Button = styled.button`
 
 
 const ProductItem = () => {
+    const location = useLocation();
+    const id = location.pathname.split("/")[2];
+    const [product, setProduct] = useState({});
+    const [quantity, setQuantity] = useState(1);
+    const [color, setColor] = useState("");
+    const [size, setSize] = useState("");
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getProduct = async () => {
+            try {
+                const res = await publicRequest.get("products/" + id);
+                setProduct(res.data[0]);
+            } catch (err) {
+                console.error(err.message);
+            }
+        };
+        getProduct();
+    }, [id]);
+
+    const handleQuantity = (type) => {
+        if (type === "dec") {
+            quantity > 1 && setQuantity(quantity - 1);
+        } else {
+            setQuantity(quantity + 1);
+        }
+    };
+
+    const handleClick = () => {
+        //update cart
+        dispatch(
+            addProduct({ ...product, quantity, color, size })
+        );
+    };
+
     return (
         <Container>
             <Announcement />
             <Navbar />
             <Wrapper>
                 <ImgContainer>
-                    <Image src="assets/images/good-skin-club.jpg" />
+                    <Image src={product.img} />
                 </ImgContainer>
                 <InfoContainer>
-                    <Title>Good Skin Club</Title>
-                    <Description>UltraHydrate Serum with Hyaluronic Acid and Essential Amino Acids.</Description>
-                    <Price>£ 53</Price>
+                    <Title>{product.name}</Title>
+                    <Description>{product.description}</Description>
+                    <Price>£ {product.price}</Price>
                     <FilterContainer>
                         <Filter>
                             <FilterTitle>Color</FilterTitle>
-                            <FilterColor color="pink" />
-                            <FilterColor color="orange" />
-                            <FilterColor color="red" />
+                            {product.color?.map((color) => (
+                                <FilterColor color={color} key={color} onClick={() => setColor(color)}/>
+                            ))}                         
                         </Filter>
                         <Filter>
                             <FilterTitle>Size</FilterTitle>
-                            <FilterSize>
-                                <FilterSizeOption>90ml</FilterSizeOption>
-                                <FilterSizeOption>35ml</FilterSizeOption>
-                                <FilterSizeOption>15ml</FilterSizeOption>
-                            </FilterSize>
+                            <FilterSize onChange={(e) => setSize(e.target.value)}>
+                                {product.size?.map((size) => (
+                                    <FilterSizeOption key={size}>{size}</FilterSizeOption>
+                                ))}                                
+                           </FilterSize>
                         </Filter>
                     </FilterContainer>
                     <AddContainer>
                         <AmountContainer>
-                            <Remove style={{cursor:"pointer"}}/>
-                            <Amount>1</Amount>
-                            <Add style={{cursor:"pointer"}}/>
+                            <Remove style={{cursor:"pointer"}} onClick={() => handleQuantity("dec")}/>
+                            <Amount>{quantity}</Amount>
+                            <Add style={{cursor:"pointer"}} onClick={() => handleQuantity("inc")}/>
                         </AmountContainer>
-                        <Button>ADD TO CART </Button>
+                        <Button onClick={handleClick}>ADD TO CART </Button>
                     </AddContainer>
                 </InfoContainer>
             </Wrapper>

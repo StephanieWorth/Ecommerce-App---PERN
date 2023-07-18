@@ -5,12 +5,12 @@ import Login from './pages/Login';
 import ProductItem from './pages/ProductItem';
 import ProductList from './pages/ProductList';
 import Register from './pages/Register';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  Link
+  Redirect
 } from "react-router-dom";
 
 const App = () => {
