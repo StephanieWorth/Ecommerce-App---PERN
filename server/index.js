@@ -28,7 +28,7 @@ app.use("/", require("./routes/cart"));
 app.use("/", require("./routes/order"));
 
 //stripe routes
-app.use("/stripe", require("./routes/stripe"));
+app.use("/checkout", require("./routes/stripe"));
 
 /*
 //guest cart routes
