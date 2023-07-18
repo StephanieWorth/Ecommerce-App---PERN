@@ -3,24 +3,23 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
 import { loadStripe } from '@stripe/stripe-js';
-import dotenv from 'dotenv';
+import { persistor, store } from './redux/store';
 
-dotenv.config();
 
-const KEY = process.env.REACT_APP_STRIPE;
-const stripePromise = loadStripe(KEY);
+// Access the publishable key from the environment variable
+const publishableKey = process.env.REACT_APP_STRIPE;
+
+const stripePromise = loadStripe(publishableKey);
 
 stripePromise.then(stripe => {
-  //set the stripe publishable key
-  stripe.setPublishableKey(KEY);
-
-
   //render the application
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate> 
     </Provider>,
     document.getElementById('root')
   );

@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement/Announcement";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import { mobile } from "../responsive";
+import { login } from "../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
+
+
+
 
 const MainContainer = styled.div`
 
@@ -64,7 +69,10 @@ const Button = styled.button`
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 25px
-
+    &:disabled{
+        color: gray;
+        cursor: not-allowed;
+    }
 `;
 
 const Link = styled.a`
@@ -77,7 +85,21 @@ const Link = styled.a`
     letter-spacing: ${(props) => props.type === "account" && "1px"};
 `;
 
+const Error = styled.span`
+    color: red;
+`;
+
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const { isFetching, error } = useSelector((state) => state.user);
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        login(dispatch, { email, password });
+    };
+
     return (
         <MainContainer>
             <Announcement />
@@ -87,10 +109,11 @@ const Login = () => {
                     <Title>SIGN IN</Title>
                     <Form>
                         <Label>Email *</Label>
-                        <Input  />
+                        <Input  onChange={(e) => setEmail(e.target.value)} />
                         <Label>Password *</Label>
-                        <Input  />
-                        <Button>SIGN IN</Button>
+                        <Input type="password" onChange={(e) => setPassword(e.target.value)} />
+                        <Button onClick={handleClick} disabled={isFetching}>SIGN IN</Button>
+                        {error && <Error>Something went wrong</Error>}
                         <Link>Forgot Password?</Link>
                         <Link type="account">CREATE CUSTOMER ACCOUNT</Link>
                     </Form>
