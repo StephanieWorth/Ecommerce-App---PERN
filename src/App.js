@@ -1,10 +1,24 @@
 import './App.css';
-import Topbar from "./components/Topbar";
+import Home from './pages/Home';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+
 const App = () => {
   return (
-    <div className="App">
-      <Topbar />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
+
+    
   );
 }
 
