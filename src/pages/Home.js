@@ -4,7 +4,7 @@ import FeaturedInfo from "../components/FeaturedInfo";
 import WidgetSml from "../components/WidgetSml";
 import WidgetLg from "../components/WidgetLg";
 import { styled } from "styled-components";
-
+import { userData } from "../testData";
 
 const Container = styled.div`
     flex: 4;
@@ -19,7 +19,7 @@ const Home = () => {
     return (
         <Container>       
             <FeaturedInfo />
-            <Chart data={"userData"} title="User Analytics" grid datakey="Active User" />
+            <Chart data={userData} title="User Analytics" grid datakey="Active User" />
             <Widgets>
                 <WidgetSml />
                 <WidgetLg />
