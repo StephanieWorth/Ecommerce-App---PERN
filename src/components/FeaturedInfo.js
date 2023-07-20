@@ -47,7 +47,7 @@ const Sub = styled.span`
 const Icon = styled.span`
     font-size: 14px;
     margin-left: 5px;
-    color: ${props => props.direction === "up" && "green" || props.direction === "down" && "red" };
+    color: ${props => (props.direction === "up" && "green") || (props.direction === "down" && "red") };
 `;
 
 

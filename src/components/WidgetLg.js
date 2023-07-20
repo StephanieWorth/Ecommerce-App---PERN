@@ -13,8 +13,8 @@ const Button = styled.button`
     padding: 5px 7px;
     border: none;
     border-radius: 10px;
-    background-color: ${props => props.type === "Approved" && "#e5faf2" || props.type === "Declined" && "#fff0f1" || props.type === "Pending" && "#ebf1fe"};
-    color: ${props => props.type === "Approved" && "#3bb077" || props.type === "Declined" && "#d95087" || props.type === "Pending" && "##2a7ade"};
+    background-color: ${props => (props.type === "Approved" && "#e5faf2") || (props.type === "Declined" && "#fff0f1") || (props.type === "Pending" && "#ebf1fe")};
+    color: ${props => (props.type === "Approved" && "#3bb077") || (props.type === "Declined" && "#d95087") || (props.type === "Pending" && "##2a7ade")};
 `;
 const Title = styled.h3`
     font-size: 22px;
