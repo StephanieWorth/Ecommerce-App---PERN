@@ -103,11 +103,17 @@ const Product = () => {
         <form className="productForm">
             <div className="productFormLeft">
                 <label>Product Name</label>
-                <input type="text" placeholder={product.name} />
+                <input name="name" type="text" placeholder={product.name} />
                 <label>Product Description</label>
-                <input type="text" placeholder={product.description} />
+                <input name="description" type="text" placeholder={product.description} />
+                <label>Product Size</label>
+                <input name="size" type="text" placeholder={product.size} />
+                <label>Product Color</label>
+                <input name="color" type="text" placeholder={product.color} />
                 <label>Price</label>
-                <input type="text" placeholder={product.price} />
+                <input name="price" type="number" placeholder={product.price} />
+                <label>Product Category</label>
+                <input name="category" type="text" placeholder={product.category} />
                 <label>In Stock</label>
                 <select name="inStock" id="idStock">
                     <option value="true">Yes</option>

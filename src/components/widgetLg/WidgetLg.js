@@ -21,7 +21,7 @@ export default function WidgetLg() {
         
         console.log(res.data);
       } catch (err) {
-        console.err(err.message);
+        console.error(err.message);
       }
     };
     getOrders();
