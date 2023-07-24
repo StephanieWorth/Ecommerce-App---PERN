@@ -1,25 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../testData"
+//import { productRows } from "../../testData"
 import { Link } from "react-router-dom";
 import './ProductList.css';
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct, getProducts } from '../../redux/apiCalls';
 
 
 
 const ProductList = () => {
-    const [data, setData] = useState(productRows);
+  //const [data, setData] = useState(productRows);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
+
+  useEffect(() => {
+    getProducts(dispatch)
+  }, [dispatch])
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    //setData(data.filter((item) => item.id !== id));
+    deleteProduct(id, dispatch);
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 220 },
     {
       field: "product",
       headerName: "Product",
-      width: 200,
+      width: 320,
       renderCell: (params) => {
         return (
           <div className="productListItem">
@@ -29,12 +38,7 @@ const ProductList = () => {
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
-    {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
+    { field: "instock", headerName: "Stock", width: 200 },
     {
       field: "price",
       headerName: "Price",
@@ -63,9 +67,10 @@ const ProductList = () => {
   return (
     <div className="productList">
       <DataGrid
-        rows={data}
+        rows={products}
         disableSelectionOnClick
         columns={columns}
+        getRowId={(row) => row.id}
         pageSize={8}
         checkboxSelection
       />
